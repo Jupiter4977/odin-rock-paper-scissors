@@ -46,6 +46,19 @@ function playGame() {
     }
   }
 
+  function announceWinner() {
+    let winner;
+    const message = `Game has ended. Final scores: Player: ${humanScore} Computer: ${computerScore} `;
+    if (humanScore > computerScore) {
+      winner = 'Player';
+    } else if (computerScore > humanScore) {
+      winner = 'Computer';
+    } else winner = null;
+    if (!winner) {
+      console.log(message + 'The result is a tie!');
+    } else console.log(message + `${winner} wins!`);
+  }
+
   function playRound(humanChoice, computerChoice = getComputerChoice()) {
     if (humanChoice === computerChoice)
       return handleResult(humanChoice, computerChoice);
@@ -70,6 +83,7 @@ function playGame() {
     }
   }
   for (let i = 0; i < 5; i++) console.log(playRound(getHumanChoice()));
+  announceWinner();
 }
 
 playGame();
