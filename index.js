@@ -7,29 +7,6 @@ function getComputerChoice() {
   } else return 'scissors';
 }
 
-function getHumanChoice() {
-  const userInput = prompt('Insert move: Rock Paper Scissors');
-  const humanChoice = userInput
-    ? userInput.toLowerCase().replace(/\s+/g, '')
-    : null;
-  switch (humanChoice) {
-    case null:
-      alert('Please insert a move');
-      return getHumanChoice();
-    case 'rock':
-      return humanChoice;
-    case 'paper':
-      return humanChoice;
-    case 'scissors':
-      return humanChoice;
-    default:
-      alert(
-        `"${humanChoice}" is not a valid move. \nValid moves: Rock Paper Scissors`
-      );
-      return getHumanChoice();
-  }
-}
-
 function playGame() {
   let humanScore = 0;
   let computerScore = 0;
@@ -82,8 +59,17 @@ function playGame() {
       }
     }
   }
-  for (let i = 0; i < 5; i++) console.log(playRound(getHumanChoice()));
-  announceWinner();
+
+  function buttonEvents() {
+    const buttons = document.querySelectorAll('.rps-button');
+    buttons.forEach((button) => {
+      const humanChoice = button.textContent.toLowerCase();
+      button.addEventListener('click', () =>
+        console.log(playRound(humanChoice))
+      );
+    });
+  }
+  buttonEvents();
 }
 
 playGame();
