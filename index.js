@@ -1,6 +1,3 @@
-let humanScore = 0;
-let computerScore = 0;
-
 function getComputerChoice() {
   const randomNumber = Math.random();
   if (randomNumber >= 0 && randomNumber < 1 / 3) {
@@ -33,38 +30,46 @@ function getHumanChoice() {
   }
 }
 
-function handleResult(humanChoice, computerChoice, winner) {
-  if (winner === 'player') {
-    humanScore++;
-    return `Player picked ${humanChoice}, Computer picked ${computerChoice}. Result: Player Wins! Player Score: ${humanScore} Computer Score: ${computerScore}`;
-  } else if (winner === 'computer') {
-    computerScore++;
-    return `Player picked ${humanChoice}, Computer picked ${computerChoice}. Result: Computer Wins! Player Score: ${humanScore} Computer Score: ${computerScore}`;
-  } else {
-    return `Player picked ${humanChoice}, Computer picked ${computerChoice}. Result: Tie! Player Score: ${humanScore} Computer Score: ${computerScore}`;
+function playGame() {
+  let humanScore = 0;
+  let computerScore = 0;
+
+  function handleResult(humanChoice, computerChoice, winner) {
+    if (winner === 'player') {
+      humanScore++;
+      return `Player picked ${humanChoice}, Computer picked ${computerChoice}. Result: Player Wins! Player Score: ${humanScore} Computer Score: ${computerScore}`;
+    } else if (winner === 'computer') {
+      computerScore++;
+      return `Player picked ${humanChoice}, Computer picked ${computerChoice}. Result: Computer Wins! Player Score: ${humanScore} Computer Score: ${computerScore}`;
+    } else {
+      return `Player picked ${humanChoice}, Computer picked ${computerChoice}. Result: Tie! Player Score: ${humanScore} Computer Score: ${computerScore}`;
+    }
   }
+
+  function playRound(humanChoice, computerChoice = getComputerChoice()) {
+    if (humanChoice === computerChoice)
+      return handleResult(humanChoice, computerChoice);
+    if (humanChoice === 'rock') {
+      if (computerChoice === 'paper') {
+        return handleResult(humanChoice, computerChoice, 'computer');
+      } else {
+        return handleResult(humanChoice, computerChoice, 'player');
+      }
+    } else if (humanChoice === 'paper') {
+      if (computerChoice === 'rock') {
+        return handleResult(humanChoice, computerChoice, 'player');
+      } else {
+        return handleResult(humanChoice, computerChoice, 'computer');
+      }
+    } else if (humanChoice === 'scissors') {
+      if (computerChoice === 'rock') {
+        return handleResult(humanChoice, computerChoice, 'computer');
+      } else {
+        return handleResult(humanChoice, computerChoice, 'player');
+      }
+    }
+  }
+  for (let i = 0; i < 5; i++) console.log(playRound(getHumanChoice()));
 }
 
-function playRound(humanChoice, computerChoice = getComputerChoice()) {
-  if (humanChoice === computerChoice)
-    return handleResult(humanChoice, computerChoice);
-  if (humanChoice === 'rock') {
-    if (computerChoice === 'paper') {
-      return handleResult(humanChoice, computerChoice, 'computer');
-    } else {
-      return handleResult(humanChoice, computerChoice, 'player');
-    }
-  } else if (humanChoice === 'paper') {
-    if (computerChoice === 'rock') {
-      return handleResult(humanChoice, computerChoice, 'player');
-    } else {
-      return handleResult(humanChoice, computerChoice, 'computer');
-    }
-  } else if (humanChoice === 'scissors') {
-    if (computerChoice === 'rock') {
-      return handleResult(humanChoice, computerChoice, 'computer');
-    } else {
-      return handleResult(humanChoice, computerChoice, 'player');
-    }
-  }
-}
+playGame();
