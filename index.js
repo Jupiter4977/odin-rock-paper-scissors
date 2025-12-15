@@ -12,14 +12,15 @@ function playGame() {
   let computerScore = 0;
 
   function handleResult(humanChoice, computerChoice, winner) {
+    const displayElement = document.querySelector('.game-result');
     if (winner === 'player') {
       humanScore++;
-      return `Player picked ${humanChoice}, Computer picked ${computerChoice}. Result: Player Wins! Player Score: ${humanScore} Computer Score: ${computerScore}`;
+      displayElement.textContent = `Player picked ${humanChoice}, Computer picked ${computerChoice}. Result: Player Wins! Player Score: ${humanScore} Computer Score: ${computerScore}`;
     } else if (winner === 'computer') {
       computerScore++;
-      return `Player picked ${humanChoice}, Computer picked ${computerChoice}. Result: Computer Wins! Player Score: ${humanScore} Computer Score: ${computerScore}`;
+      displayElement.textContent = `Player picked ${humanChoice}, Computer picked ${computerChoice}. Result: Computer Wins! Player Score: ${humanScore} Computer Score: ${computerScore}`;
     } else {
-      return `Player picked ${humanChoice}, Computer picked ${computerChoice}. Result: Tie! Player Score: ${humanScore} Computer Score: ${computerScore}`;
+      displayElement.textContent = `Player picked ${humanChoice}, Computer picked ${computerChoice}. Result: Tie! Player Score: ${humanScore} Computer Score: ${computerScore}`;
     }
   }
 
@@ -64,9 +65,7 @@ function playGame() {
     const buttons = document.querySelectorAll('.rps-button');
     buttons.forEach((button) => {
       const humanChoice = button.textContent.toLowerCase();
-      button.addEventListener('click', () =>
-        console.log(playRound(humanChoice))
-      );
+      button.addEventListener('click', () => playRound(humanChoice));
     });
   }
   buttonEvents();
