@@ -8,33 +8,33 @@ function getComputerChoice() {
 }
 
 function playGame() {
+  const displayElement = document.querySelector('.game-result');
   let humanScore = 0;
   let computerScore = 0;
 
   function handleResult(humanChoice, computerChoice, winner) {
-    const displayElement = document.querySelector('.game-result');
     if (winner === 'player') {
       humanScore++;
-      displayElement.textContent = `Player picked ${humanChoice}, Computer picked ${computerChoice}. Result: Player Wins! Player Score: ${humanScore} Computer Score: ${computerScore}`;
+      displayResult(humanChoice, computerChoice, 'Player Wins!');
     } else if (winner === 'computer') {
       computerScore++;
-      displayElement.textContent = `Player picked ${humanChoice}, Computer picked ${computerChoice}. Result: Computer Wins! Player Score: ${humanScore} Computer Score: ${computerScore}`;
+      displayResult(humanChoice, computerChoice, 'Computer Wins!');
     } else {
-      displayElement.textContent = `Player picked ${humanChoice}, Computer picked ${computerChoice}. Result: Tie! Player Score: ${humanScore} Computer Score: ${computerScore}`;
+      displayResult(humanChoice, computerChoice);
     }
   }
 
-  function announceWinner() {
-    let winner;
-    const message = `Game has ended. Final scores: Player: ${humanScore} Computer: ${computerScore} `;
-    if (humanScore > computerScore) {
-      winner = 'Player';
-    } else if (computerScore > humanScore) {
-      winner = 'Computer';
-    } else winner = null;
-    if (!winner) {
-      console.log(message + 'The result is a tie!');
-    } else console.log(message + `${winner} wins!`);
+  function displayResult(humanChoice, computerChoice, result = 'Tie!') {
+    const gameOverMessage = `Game Over! Final score: Player: ${humanScore} Computer: ${computerScore} `;
+    if (humanScore === 5) {
+      displayElement.textContent = gameOverMessage + 'Player Wins!';
+      return;
+    } else if (computerScore === 5) {
+      displayElement.textContent = gameOverMessage + 'Player Wins!';
+      return;
+    } else {
+      displayElement.textContent = `Player picked ${humanChoice}, Computer picked ${computerChoice}. Result: ${result} Player Score: ${humanScore} Computer Score: ${computerScore}`;
+    }
   }
 
   function playRound(humanChoice, computerChoice = getComputerChoice()) {
