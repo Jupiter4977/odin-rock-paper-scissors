@@ -38,6 +38,7 @@ function playGame() {
   }
 
   function playRound(humanChoice, computerChoice = getComputerChoice()) {
+    if (computerScore >= 5 || humanScore >= 5) return;
     if (humanChoice === computerChoice)
       return handleResult(humanChoice, computerChoice);
     if (humanChoice === 'rock') {
